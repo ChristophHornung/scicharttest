@@ -21,7 +21,9 @@
 		</s3D:GradientColorPalette>
 	</UserControl.Resources>
 	<ScrollViewer>
-		<s3D:SciChart3DSurface x:Name="sciChart" BorderThickness="0" Height="800" Width="800" RenderPriority="Low"
+		<s3D:SciChart3DSurface x:Name="sciChart" BorderThickness="0" RenderPriority="Low"
+		                       HorizontalAlignment="Stretch"
+		                       VerticalAlignment="Stretch"
 		                       MaxFrameRate="30">
 			<s3D:SciChart3DSurface.Camera>
 				<s3D:Camera3D ZoomToFitOnAttach="True" />

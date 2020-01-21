@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:SciChartTest"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" d:DataContext="{d:DesignInstance local:MainWindowViewModel}">
+        WindowState="Maximized"
+        Title="MainWindow" d:DataContext="{d:DesignInstance local:MainWindowViewModel}">
 	<Window.Resources>
 		<DataTemplate x:Key="ChartTemplate" DataType="{x:Type local:ChartViewModel}">
 			<local:ChartView />
@@ -18,9 +19,16 @@
 		                             ChartTemplate="{StaticResource ChartTemplate}"
 		                             OtherTemplate="{StaticResource OtherTemplate}" />
 	</Window.Resources>
-	<StackPanel>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
 		<Button Click="ButtonBase_OnClick">Switch View</Button>
-		<ContentControl Content="{Binding Chart}" ContentTemplateSelector="{StaticResource ChartTemplateSelector}" />
+		<ContentControl Content="{Binding Chart}" ContentTemplateSelector="{StaticResource ChartTemplateSelector}"
+						Grid.Row="1"
+		                HorizontalAlignment="Stretch"
+		                VerticalAlignment="Stretch" />
 		<!--<local:ChartView DataContext="{Binding Chart}"/>-->
-	</StackPanel>
+	</Grid>
 </Window>
