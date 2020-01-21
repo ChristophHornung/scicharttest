@@ -12,7 +12,8 @@ namespace SciChartTest
 	{
 		public MainWindow()
 		{
-			SciChartSurface.SetRuntimeLicenseKey("KEY");
+			SciChartSurface.SetRuntimeLicenseKey(
+				"KEY");
 			this.InitializeComponent();
 			this.DataContext = new MainWindowViewModel();
 		}

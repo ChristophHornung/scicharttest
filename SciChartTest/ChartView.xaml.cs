@@ -22,24 +22,12 @@ namespace SciChartTest
 	public class ChartViewModel : INotifyPropertyChanged
 	{
 		private static Random random = new Random();
+		private bool up = true;
 
 		public ChartViewModel()
 		{
-			int xSize = 512;
-			int zSize = 512;
-
-			var meshDataSeries = new UniformGridDataSeries3D<double>(xSize, zSize)
-			{
-				SeriesName = "3D Test",
-			};
-
-			for (int x = 0; x < xSize; x++)
-			for (int z = 0; z < zSize; z++)
-			{
-				meshDataSeries[z, x] = random.NextDouble();
-			}
-
-			this.ExampleDataSeries = meshDataSeries;
+			this.up = true;
+			this.RefreshData();
 		}
 
 		private UniformGridDataSeries3D<double> exampleDataSeries;
@@ -61,6 +49,38 @@ namespace SciChartTest
 		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
 		{
 			this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+		}
+
+		private void RefreshData()
+		{
+			int xSize = 512;
+			int zSize = 512;
+
+			var meshDataSeries = new UniformGridDataSeries3D<double>(xSize, zSize)
+			{
+				SeriesName = "3D Test",
+			};
+
+			for (int x = 0; x < xSize; x++)
+			for (int z = 0; z < zSize; z++)
+			{
+				if (this.up)
+				{
+					meshDataSeries[z, x] = x > xSize / 2 ? 1 : 0.5;
+				}
+				else
+				{
+					meshDataSeries[z, x] = x > xSize / 2 ? 0.5 : 1;
+				}
+			}
+
+			this.ExampleDataSeries = meshDataSeries;
+		}
+
+		public void SwitchChart()
+		{
+			this.up = !this.up;
+			this.RefreshData();
 		}
 	}
 }

@@ -34,13 +34,9 @@ namespace SciChartTest
 
 		public void SwitchChart()
 		{
-			if (this.Chart is ChartViewModel)
+			if (this.Chart is ChartViewModel chartViewModel)
 			{
-				this.Chart = "Other chart";
-			}
-			else
-			{
-				this.Chart = new ChartViewModel();
+				chartViewModel.SwitchChart();
 			}
 		}
 	}
