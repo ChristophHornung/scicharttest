@@ -20,7 +20,17 @@ namespace SciChartTest
 
 		private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
 		{
-			((MainWindowViewModel)DataContext).SwitchChart();
+			((MainWindowViewModel)DataContext).SetSeries();
+		}
+
+		private void ButtonBase_OnClick2(object sender, RoutedEventArgs e)
+		{
+			((MainWindowViewModel)DataContext).SetPaletteNull();
+		}
+
+		private void ButtonBase_OnClick3(object sender, RoutedEventArgs e)
+		{
+			((MainWindowViewModel)DataContext).SetDataContextNull();
 		}
 	}
 }

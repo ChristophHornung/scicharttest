@@ -32,12 +32,25 @@ namespace SciChartTest
 			}
 		}
 
-		public void SwitchChart()
+		public void SetSeries()
 		{
 			if (this.Chart is ChartViewModel chartViewModel)
 			{
-				chartViewModel.SwitchChart();
+				chartViewModel.SetSeriesNull();
 			}
+		}
+
+		public void SetPaletteNull()
+		{
+			if (this.Chart is ChartViewModel chartViewModel)
+			{
+				chartViewModel.SetPaletteNull();
+			}
+		}
+
+		public void SetDataContextNull()
+		{
+			this.Chart = null;
 		}
 	}
 }

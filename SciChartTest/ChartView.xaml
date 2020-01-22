@@ -7,59 +7,53 @@
              xmlns:s3D="http://schemas.abtsoftware.co.uk/scichart3D"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800" d:DataContext="{d:DesignInstance local:ChartViewModel}">
-	<UserControl.Resources>
-		<s3D:GradientColorPalette x:Key="HeightColorMap" ContourColor="Black" ContourStrokeThickness="2.0">
-			<s3D:GradientColorPalette.GradientStops>
-				<GradientStop Offset="1" Color="DarkRed" />
-				<GradientStop Offset="0.9" Color="Red" />
-				<GradientStop Offset="0.7" Color="Yellow" />
-				<GradientStop Offset="0.5" Color="GreenYellow" />
-				<GradientStop Offset="0.3" Color="Cyan" />
-				<GradientStop Offset="0.1" Color="Blue" />
-				<GradientStop Offset="0.0" Color="#1D2C6B" />
-			</s3D:GradientColorPalette.GradientStops>
-		</s3D:GradientColorPalette>
-	</UserControl.Resources>
-	<s3D:SciChart3DSurface x:Name="sciChart" BorderThickness="0" RenderPriority="Low"
-	                       HorizontalAlignment="Stretch"
-	                       VerticalAlignment="Stretch"
-	                       MaxFrameRate="30">
-		<s3D:SciChart3DSurface.Camera>
-			<s3D:Camera3D ZoomToFitOnAttach="True" />
-		</s3D:SciChart3DSurface.Camera>
+	<Grid>
+		<s3D:SciChart3DSurface x:Name="sciChart"
+		                       BorderThickness="0"
+		                       RenderPriority="Low"
+		                       HorizontalAlignment="Stretch"
+		                       VerticalAlignment="Stretch"
+		                       MaxFrameRate="30">
+			<s3D:SciChart3DSurface.Camera>
+				<s3D:Camera3D ZoomToFitOnAttach="True" />
+			</s3D:SciChart3DSurface.Camera>
 
-		<s3D:SciChart3DSurface.RenderableSeries>
-			<s3D:SurfaceMeshRenderableSeries3D DataSeries="{Binding ExampleDataSeries}"
-			                                   DrawMeshAs="SolidMesh"
-			                                   Stroke="#77228B22"
-			                                   ContourStroke="#77228B22"
-			                                   StrokeThickness="1.0"
-			                                   DrawSkirt="False"
-			                                   Minimum="0.1"
-			                                   Maximum="1.0"
-			                                   MeshColorPalette="{StaticResource HeightColorMap}" />
-		</s3D:SciChart3DSurface.RenderableSeries>
+			<s3D:SciChart3DSurface.RenderableSeries>
+				<s3D:SurfaceMeshRenderableSeries3D DataSeries="{Binding ExampleDataSeries}"
+				                                   DrawMeshAs="SolidMesh"
+				                                   Stroke="#77228B22"
+				                                   ContourStroke="#77228B22"
+				                                   StrokeThickness="1.0"
+				                                   DrawSkirt="False"
+				                                   Minimum="0.1"
+				                                   Maximum="1.0"
+				                                   MeshColorPalette="{Binding Palette}" />
+			</s3D:SciChart3DSurface.RenderableSeries>
 
-		<s3D:SciChart3DSurface.XAxis>
-			<s3D:NumericAxis3D NegativeSideClipping="None" PositiveSideClipping="None" />
-		</s3D:SciChart3DSurface.XAxis>
+			<s3D:SciChart3DSurface.XAxis>
+				<s3D:NumericAxis3D NegativeSideClipping="None" PositiveSideClipping="None" />
+			</s3D:SciChart3DSurface.XAxis>
 
-		<s3D:SciChart3DSurface.YAxis>
-			<s3D:NumericAxis3D DrawMinorTicks="False" DrawMajorTicks="True" DrawLabels="True" />
-		</s3D:SciChart3DSurface.YAxis>
+			<s3D:SciChart3DSurface.YAxis>
+				<s3D:NumericAxis3D DrawMinorTicks="False" DrawMajorTicks="True" DrawLabels="True" />
+			</s3D:SciChart3DSurface.YAxis>
 
-		<s3D:SciChart3DSurface.ZAxis>
-			<s3D:NumericAxis3D NegativeSideClipping="None" PositiveSideClipping="None" />
-		</s3D:SciChart3DSurface.ZAxis>
-		<s3D:SciChart3DSurface.ChartModifier>
-			<s3D:ModifierGroup3D>
-				<s3D:OrbitModifier3D ExecuteWhen="Shift" DegreesPerPixelSensitivity="0.2" IsEnabled="True" />
-				<s3D:MouseWheelZoomModifier3D />
-				<s3D:ZoomExtentsModifier3D AnimateDurationMs="500"
-				                           ResetPosition="200,200,200"
-				                           ResetTarget="0,0,0" />
-			</s3D:ModifierGroup3D>
-		</s3D:SciChart3DSurface.ChartModifier>
-	</s3D:SciChart3DSurface>
-
+			<s3D:SciChart3DSurface.ZAxis>
+				<s3D:NumericAxis3D NegativeSideClipping="None" PositiveSideClipping="None" />
+			</s3D:SciChart3DSurface.ZAxis>
+			<s3D:SciChart3DSurface.ChartModifier>
+				<s3D:ModifierGroup3D>
+					<s3D:OrbitModifier3D ExecuteWhen="Shift" DegreesPerPixelSensitivity="0.2" IsEnabled="True" />
+					<s3D:MouseWheelZoomModifier3D />
+					<s3D:ZoomExtentsModifier3D AnimateDurationMs="500"
+					                           ResetPosition="200,200,200"
+					                           ResetTarget="0,0,0" />
+				</s3D:ModifierGroup3D>
+			</s3D:SciChart3DSurface.ChartModifier>
+		</s3D:SciChart3DSurface>
+		<StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
+			<Button Click="RemoveDataContext" Width="150" Height="25">Set Chart Data Context Null</Button>
+			<Button Click="SwitchData" Width="150" Height="25">Switch Data</Button>
+		</StackPanel>
+	</Grid>
 </UserControl>

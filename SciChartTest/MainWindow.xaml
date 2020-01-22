@@ -22,13 +22,17 @@
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
-		<Button Click="ButtonBase_OnClick">Switch View</Button>
-		<ContentControl Content="{Binding Chart}" ContentTemplateSelector="{StaticResource ChartTemplateSelector}"
-						Grid.Row="1"
+		<Button Click="ButtonBase_OnClick">Set Series Null</Button>
+		<Button Grid.Row="1" Click="ButtonBase_OnClick2">Set Palette Null</Button>
+		<Button Grid.Row="2" Click="ButtonBase_OnClick3">Set DataContext Null</Button>
+		<!--<ContentControl Content="{Binding Chart}" ContentTemplateSelector="{StaticResource ChartTemplateSelector}"
+						Grid.Row="3"
 		                HorizontalAlignment="Stretch"
-		                VerticalAlignment="Stretch" />
-		<!--<local:ChartView DataContext="{Binding Chart}"/>-->
+		                VerticalAlignment="Stretch" />-->
+		<local:ChartView DataContext="{Binding Chart}" Grid.Row="3"/>
 	</Grid>
 </Window>
