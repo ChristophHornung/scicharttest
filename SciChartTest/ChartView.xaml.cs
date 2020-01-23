@@ -36,7 +36,7 @@ namespace SciChartTest
 			for (int x = 0; x < xSize; x++)
 			for (int z = 0; z < zSize; z++)
 			{
-				meshDataSeries[z, x] = random.NextDouble();
+				meshDataSeries[z, x] = 0.5;
 			}
 
 			this.ExampleDataSeries = meshDataSeries;

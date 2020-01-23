@@ -1,11 +1,13 @@
 ﻿<UserControl x:Class="SciChartTest.ChartView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:SciChartTest"
              xmlns:s3D="http://schemas.abtsoftware.co.uk/scichart3D"
-             mc:Ignorable="d" 
+             xmlns:s="http://schemas.abtsoftware.co.uk/scichart"
+             xmlns:chartData="clr-namespace:SciChart.Charting3D.Model.ChartData;assembly=SciChart.Charting3D"
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800" d:DataContext="{d:DesignInstance local:ChartViewModel}">
 	<UserControl.Resources>
 		<s3D:GradientColorPalette x:Key="HeightColorMap" ContourColor="Black" ContourStrokeThickness="2.0">
@@ -19,6 +21,59 @@
 				<GradientStop Offset="0.0" Color="#1D2C6B" />
 			</s3D:GradientColorPalette.GradientStops>
 		</s3D:GradientColorPalette>
+		<DropShadowEffect x:Key="DropShadowEffect"
+		                  BlurRadius="5"
+		                  Direction="-45"
+		                  ShadowDepth="10"
+		                  Color="Black" />
+
+		<Style x:Key="TooltipStyle" TargetType="s:TooltipControl">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="s:TooltipControl">
+						<Border Background="#ff6495ed"
+						        BorderBrush="#ff4d81dd"
+						        BorderThickness="2"
+						        Effect="{StaticResource DropShadowEffect}"
+						        Opacity="0.9"
+						        Padding="5">
+
+							<ContentPresenter Content="{TemplateBinding DataContext}" ContentTemplate="{TemplateBinding ContentTemplate}" />
+						</Border>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
+		<DataTemplate x:Key="XyzSeriesTooltipTemplate" DataType="chartData:BaseXyzSeriesInfo3D">
+			<StackPanel>
+				<TextBlock>
+					<Run FontWeight="Bold" Text="This is the Custom tooltip DataTemplate" />
+				</TextBlock>
+				<StackPanel Orientation="Vertical">
+					<TextBlock>
+						<Run FontWeight="Bold" Text="VertexId: " />
+						<Run Text="{Binding VertexId}" />
+					</TextBlock>
+					<TextBlock>
+						<Run FontWeight="Bold" Text="PointMetadata: " />
+						<Run Text="{Binding PointMetadata.Tag}" />
+					</TextBlock>
+					<TextBlock>
+						<Run FontWeight="Bold" Text="X: " />
+						<Run Text="{Binding FormattedXValue, Mode=OneWay}" />
+					</TextBlock>
+					<TextBlock>
+						<Run FontWeight="Bold" Text="Y: " />
+						<Run Text="{Binding FormattedYValue, Mode=OneWay}" />
+					</TextBlock>
+					<TextBlock>
+						<Run FontWeight="Bold" Text="Z: " />
+						<Run Text="{Binding FormattedZValue, Mode=OneWay}" />
+					</TextBlock>
+				</StackPanel>
+			</StackPanel>
+		</DataTemplate>
 	</UserControl.Resources>
 	<ScrollViewer>
 		<s3D:SciChart3DSurface x:Name="sciChart" BorderThickness="0" Height="800" Width="800" RenderPriority="Low"
@@ -29,6 +84,8 @@
 
 			<s3D:SciChart3DSurface.RenderableSeries>
 				<s3D:SurfaceMeshRenderableSeries3D DataSeries="{Binding ExampleDataSeries}"
+				                                   s3D:TooltipModifier3D.TooltipContainerStyle="{StaticResource TooltipStyle}"
+				                                   s3D:TooltipModifier3D.TooltipTemplate="{StaticResource XyzSeriesTooltipTemplate}"
 				                                   DrawMeshAs="SolidMesh"
 				                                   Stroke="#77228B22"
 				                                   ContourStroke="#77228B22"
@@ -52,6 +109,7 @@
 				<s3D:ModifierGroup3D>
 					<s3D:OrbitModifier3D ExecuteWhen="Shift" DegreesPerPixelSensitivity="0.2" IsEnabled="True" />
 					<s3D:MouseWheelZoomModifier3D />
+					<s3D:TooltipModifier3D HoverDelay="0" ShowTooltipOn="MouseOver" />
 					<s3D:ZoomExtentsModifier3D AnimateDurationMs="500"
 					                           ResetPosition="200,200,200"
 					                           ResetTarget="0,0,0" />
